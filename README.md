@@ -21,5 +21,5 @@ print(f'The file is uploaded: {link}')
 ```
 or from the commandline
 ```
-bayfile_upload /path/to/file
+bayfile_upload --file /path/to/file
 ```

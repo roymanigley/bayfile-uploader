@@ -4,7 +4,7 @@ long_description = open('README.md', "rt").read()
 
 setup(
     name='bayfile_uploader',
-    version='1.0.3',    
+    version='1.1.3',    
     description='File Uploader, uploads files to bayfiles.com',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -15,6 +15,7 @@ setup(
     packages=['bayfile_uploader'],
     install_requires=[
         'requests>=2.28.1',
+        'click>=8.1.3',
     ],
     entry_points = {
         'console_scripts': [

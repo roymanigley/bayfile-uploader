@@ -1,7 +1,8 @@
 from requests import post
 from json import loads
-import sys
 from os import path
+import click
+import sys
 
 
 url = 'https://api.bayfiles.com/upload'
@@ -14,19 +15,21 @@ def upload_file(file_name: str) -> None:
         if response.status_code == 200:
             print(json_data['data']['file']['url']['full'])
         else:
-            print(json_data['error']['message'], file_name)
+            print(json_data['error']['message'], file_name, file=sys.stderr)
 
 
-def main():
-    if len(sys.argv) > 1:
-        file = sys.argv[1]
-        if path.exists(file):
-            upload_file(sys.argv[1])
-        else:
-            print(f'Invalid file: {file}')
-
+@click.command()
+@click.option(
+        '--file', 
+        prompt='Enter the file you want to upload', 
+        help='The file you wanto to upload', 
+        type=click.File('r')
+)
+def main(file):
+    if path.exists(file.name):
+        upload_file(file.name)
     else:
-        print('missing parameter for file.')
+        print(f'File not found: {file}', file=sys.stderr)
 
 
 if __name__ == '__main__':
